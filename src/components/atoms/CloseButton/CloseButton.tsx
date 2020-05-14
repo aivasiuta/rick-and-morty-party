@@ -6,12 +6,13 @@ import CrossIcon from '../../../assets/cross.svg'
 interface Props {
   // todo type
   onClick: (e: any) => void
+  colorType?: CloseButtonColor
 }
 
-export const CloseButton: FC<Props> = ({ onClick }) => {
+export const CloseButton: FC<Props> = ({ onClick, colorType = 'light' }) => {
   return (
-      <Styled.CloseIcon>
-        <img src={CrossIcon} alt="delete" onClick={onClick} />
-      </Styled.CloseIcon>
+    <Styled.CloseIcon colorType={colorType}>
+      <img src={CrossIcon} alt="delete" onClick={onClick} />
+    </Styled.CloseIcon>
   )
 }

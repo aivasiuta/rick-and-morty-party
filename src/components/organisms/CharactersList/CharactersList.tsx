@@ -6,13 +6,14 @@ import { CharacterCard } from '../../molecules/CharacterCard'
 interface Props {
   // todo type
   characters: any[]
+  onCharacterClick: any
 }
 
-export const CharactersList: FC<Props> = ({ characters }): JSX.Element => {
+export const CharactersList: FC<Props> = ({ characters, onCharacterClick}): JSX.Element => {
   return (
     <Styled.Wrapper>
       {characters.map((character: any) => (
-        <CharacterCard key={character.id} imageUrl={character.image} name={character.name} />
+        <CharacterCard key={character.id} character={character} onClick={onCharacterClick} isCloseable />
       ))}
     </Styled.Wrapper>
   )

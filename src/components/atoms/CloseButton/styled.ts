@@ -1,21 +1,28 @@
 import styled from 'styled-components'
 
-const CloseIcon = styled.div`
-  position: absolute;
+const backgroundMapping = {
+  light: {
+    regular: 'rgba(255, 255, 255, 0.75)',
+    hover: 'rgba(255, 255, 255, 1)',
+  },
+  dark: {
+    regular: 'rgba(200, 200, 200, 0.75)',
+    hover: 'rgba(200, 200, 200, 1)',
+  },
+}
+
+const CloseIcon = styled.div<{ colorType: CloseButtonColor }>`
   display: flex;
   justify-content: center;
-  text-align: center;
-  right: 8px;
-  top: 8px;
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
+  background: ${({ colorType }) => backgroundMapping[colorType].regular};
   cursor: pointer;
   transition: background-color ease-in 150ms;
   
   &:hover {
-    background: rgba(255, 255, 255, 1);
+    background: ${({ colorType }) => backgroundMapping[colorType].hover};
   }
 `
 

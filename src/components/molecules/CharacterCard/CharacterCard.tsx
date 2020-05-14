@@ -4,11 +4,14 @@ import { Styled } from './styled'
 import { CloseButton } from '../../atoms/CloseButton'
 
 interface Props {
-  imageUrl: string
-  name: string
+  // todo type
+  character?: any
+  onClick?: any
+  placeholder?: string
+  isCloseable?: boolean
 }
 
-export const CharacterCard: FC<Props> = ({ imageUrl, name }) => {
+export const CharacterCard: FC<Props> = ({ character, onClick, placeholder, isCloseable= false }): JSX.Element => {
   // todo type
   const handleDelete = (e: any) => {
     e.stopPropagation()
@@ -16,12 +19,19 @@ export const CharacterCard: FC<Props> = ({ imageUrl, name }) => {
   }
 
   const handleCardClick = () => {
-    alert('click on card')
+    onClick(character)
   }
 
   return (
-    <Styled.Wrapper imageUrl={imageUrl} onClick={handleCardClick}>
-      <CloseButton onClick={handleDelete} />
+    <Styled.Wrapper imageUrl={character?.image} onClick={handleCardClick}>
+      {isCloseable && (
+        <Styled.CloseIconContainer>
+          <CloseButton onClick={handleDelete} />
+        </Styled.CloseIconContainer>
+      )}
+      {placeholder && !character && (
+        <Styled.Placeholder>{placeholder}</Styled.Placeholder>
+      )}
     </Styled.Wrapper>
   )
 }
