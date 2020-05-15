@@ -12,11 +12,13 @@ interface Props {
 
 export const CharacterCard: FC<Props> = ({ character }): JSX.Element => {
   const { id, image, name } = character
-  const [ addExcluded ] = useMutation(ADD_EXCLUDED_CHARACTER, { variables: { id } })
-  const [ addRickImage ] = useMutation(ADD_RICK_IMAGE, { variables: { image } })
-  const [ addMortyImage ] = useMutation(ADD_MORTY_IMAGE, { variables: { image } })
+  const [addExcluded] = useMutation(ADD_EXCLUDED_CHARACTER, { variables: { id } })
+  const [addRickImage] = useMutation(ADD_RICK_IMAGE, { variables: { image } })
+  const [addMortyImage] = useMutation(ADD_MORTY_IMAGE, { variables: { image } })
 
-  const handleDelete: React.ReactEventHandler<HTMLButtonElement> = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDelete: React.ReactEventHandler<HTMLButtonElement> = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     event.stopPropagation()
     await addExcluded()
   }

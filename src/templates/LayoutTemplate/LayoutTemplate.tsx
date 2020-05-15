@@ -7,9 +7,5 @@ interface Props {
 }
 
 export const LayoutTemplate: FC<Props> = ({ children }): JSX.Element => {
-  return (
-    <Styled.Container>
-      {children}
-    </Styled.Container>
-  )
+  return <Styled.Container>{children}</Styled.Container>
 }

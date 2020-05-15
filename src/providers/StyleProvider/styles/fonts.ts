@@ -28,14 +28,14 @@ export const mtsFont = css`
     font-weight: 500;
     font-style: normal;
   }
-  
+
   @font-face {
     font-family: 'Roboto';
     src: url('src/fonts/Roboto-Bold.ttf');
     font-weight: 700;
     font-style: normal;
   }
-  
+
   @font-face {
     font-family: 'Roboto';
     src: url('src/fonts/Roboto-Black.ttf');

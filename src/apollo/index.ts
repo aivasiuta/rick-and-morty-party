@@ -1,9 +1,9 @@
 import ApolloClient, { InMemoryCache } from 'apollo-boost'
 import { GET_EXCLUDED_CHARACTERS, GET_PARTY_CHARACTERS } from './queries'
 
-const cache = new InMemoryCache()
+const inMemoryCache = new InMemoryCache()
 
-cache.writeData({
+inMemoryCache.writeData({
   data: {
     excludedCharacters: [],
     mortyImage: null,
@@ -13,7 +13,7 @@ cache.writeData({
 
 export const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
-  cache,
+  cache: inMemoryCache,
   resolvers: {
     Mutation: {
       addExcludedCharacter: (_root, { id }, { cache }) => {
@@ -26,14 +26,17 @@ export const client = new ApolloClient({
           excludedCharacters: [...excludedCharacters, id],
         }
         cache.writeQuery({ query: GET_EXCLUDED_CHARACTERS, data })
+        return null
       },
       addRickImage: (_root, { image }, { cache }) => {
         const data = { rickImage: image }
         cache.writeQuery({ query: GET_PARTY_CHARACTERS, data })
+        return null
       },
       addMortyImage: (_root, { image }, { cache }) => {
         const data = { mortyImage: image }
         cache.writeQuery({ query: GET_PARTY_CHARACTERS, data })
+        return null
       },
     },
   },

@@ -7,7 +7,6 @@ const Wrapper = styled.div<{ imageUrl: string }>`
   background-image: url(${({ imageUrl }) => imageUrl});
   background-size: cover;
   background-position: center;
-  background-color: #DADADA;
   cursor: pointer;
 `
 

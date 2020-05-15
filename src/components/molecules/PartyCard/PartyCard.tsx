@@ -8,7 +8,5 @@ interface Props {
 }
 
 export const PartyCard: FC<Props> = ({ image, placeholder }): JSX.Element => (
-  <Styled.Wrapper imageUrl={image}>
-    {!image && <Styled.Placeholder>{placeholder}</Styled.Placeholder>}
-  </Styled.Wrapper>
+  <Styled.Wrapper imageUrl={image}>{!image && <Styled.Placeholder>{placeholder}</Styled.Placeholder>}</Styled.Wrapper>
 )

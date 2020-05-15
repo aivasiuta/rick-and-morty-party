@@ -7,9 +7,5 @@ interface Props {
 }
 
 export const EmptyState: FC<Props> = ({ children }): JSX.Element => {
-  return (
-      <Styled.Wrapper>
-        {children}
-      </Styled.Wrapper>
-  )
+  return <Styled.Wrapper>{children}</Styled.Wrapper>
 }

@@ -8,7 +8,7 @@ interface Props {
   characters: Character[]
 }
 
-export const CharactersList: FC<Props> = ({ characters}): JSX.Element => {
+export const CharactersList: FC<Props> = ({ characters }): JSX.Element => {
   return (
     <Styled.Wrapper>
       {characters.map((character: Character) => (

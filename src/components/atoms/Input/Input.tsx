@@ -8,16 +8,11 @@ interface Props extends React.HTMLAttributes<HTMLInputElement> {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Input: FC<Props> = ({
-  isClearable = false,
-  onChange,
-  ...restProps
-}): JSX.Element => {
-  const [ value, setValue ] = useState('')
+export const Input: FC<Props> = ({ isClearable = false, onChange, ...restProps }): JSX.Element => {
+  const [value, setValue] = useState('')
 
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    setValue(value)
+    setValue(event.target.value)
     onChange(event)
   }
 
@@ -28,7 +23,7 @@ export const Input: FC<Props> = ({
       <Styled.Input isClearable={isClearable} type="text" value={value} onChange={handleChangeValue} {...restProps} />
       {isClearable && value.length > 0 && (
         <Styled.CloseIconContainer>
-          <CloseButton onClick={handleReset} colorType="dark"/>
+          <CloseButton onClick={handleReset} colorType="dark" />
         </Styled.CloseIconContainer>
       )}
     </Styled.InputWrapper>

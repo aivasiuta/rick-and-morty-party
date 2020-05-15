@@ -7,7 +7,7 @@ const Input = styled.input<{ isClearable: boolean }>`
   line-height: 35px;
   font-weight: 300;
   text-transform: uppercase;
-  border: 1px solid #A0A0A0;
+  border: 1px solid #a0a0a0;
 `
 
 const InputWrapper = styled.div`

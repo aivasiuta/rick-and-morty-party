@@ -20,7 +20,7 @@ const CloseIcon = styled.button<{ colorType: CloseButtonColor }>`
   background: ${({ colorType }) => backgroundMapping[colorType].regular};
   cursor: pointer;
   transition: background-color ease-in 150ms;
-  
+
   &:hover {
     background: ${({ colorType }) => backgroundMapping[colorType].hover};
   }
