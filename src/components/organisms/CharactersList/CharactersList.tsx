@@ -2,18 +2,17 @@ import React, { FC } from 'react'
 
 import { Styled } from './styled'
 import { CharacterCard } from '../../molecules/CharacterCard'
+import { Character } from '../../../models/Character'
 
 interface Props {
-  // todo type
-  characters: any[]
-  onCharacterClick: any
+  characters: Character[]
 }
 
-export const CharactersList: FC<Props> = ({ characters, onCharacterClick}): JSX.Element => {
+export const CharactersList: FC<Props> = ({ characters}): JSX.Element => {
   return (
     <Styled.Wrapper>
-      {characters.map((character: any) => (
-        <CharacterCard key={character.id} character={character} onClick={onCharacterClick} isCloseable />
+      {characters.map((character: Character) => (
+        <CharacterCard key={character.id} character={character} />
       ))}
     </Styled.Wrapper>
   )

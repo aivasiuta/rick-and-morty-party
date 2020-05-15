@@ -11,7 +11,7 @@ const backgroundMapping = {
   },
 }
 
-const CloseIcon = styled.div<{ colorType: CloseButtonColor }>`
+const CloseIcon = styled.button<{ colorType: CloseButtonColor }>`
   display: flex;
   justify-content: center;
   height: 30px;

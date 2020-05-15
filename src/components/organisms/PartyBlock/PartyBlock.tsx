@@ -1,22 +1,18 @@
 import React, { FC } from 'react'
 
 import { Styled } from './styled'
-import { CharacterCard } from '../../molecules/CharacterCard'
+import { useQuery } from '@apollo/react-hooks'
+import { GET_PARTY_CHARACTERS } from '../../../apollo/queries'
+import { PartyCard } from '../../molecules/PartyCard'
 
-interface Props {
-  // todo types
-  rick: any
-  morty: any
-}
+export const PartyBlock: FC = (): JSX.Element => {
+  // @ts-ignore
+  const { data: { mortyImage, rickImage } } = useQuery(GET_PARTY_CHARACTERS)
 
-export const PartyBlock: FC<Props> = ({ rick, morty }): JSX.Element => {
   return (
-    <Styled.Wrapper>
-      <Styled.Title>Party</Styled.Title>
-      <Styled.CardsWrapper>
-        <CharacterCard character={rick} placeholder="RICK" />
-        <CharacterCard character={morty} placeholder="MORTY" />
-      </Styled.CardsWrapper>
-    </Styled.Wrapper>
+    <Styled.CardsWrapper>
+      <PartyCard image={rickImage} placeholder="RICK" />
+      <PartyCard image={mortyImage} placeholder="MORTY" />
+    </Styled.CardsWrapper>
   )
 }

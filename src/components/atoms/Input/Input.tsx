@@ -1,27 +1,34 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Styled } from './styled'
 import { CloseButton } from '../CloseButton'
 
 interface Props extends React.HTMLAttributes<HTMLInputElement> {
   isClearable?: boolean
-  // todo type
-  onReset?: any
-  value: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Input: FC<Props> = ({
   isClearable = false,
-  onReset,
-  value,
+  onChange,
   ...restProps
 }): JSX.Element => {
+  const [ value, setValue ] = useState('')
+
+  const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    setValue(value)
+    onChange(event)
+  }
+
+  const handleReset = () => setValue('')
+
   return (
     <Styled.InputWrapper>
-      <Styled.Input isClearable={isClearable} type="text" value={value} {...restProps} />
+      <Styled.Input isClearable={isClearable} type="text" value={value} onChange={handleChangeValue} {...restProps} />
       {isClearable && value.length > 0 && (
         <Styled.CloseIconContainer>
-          <CloseButton onClick={onReset} colorType="dark"/>
+          <CloseButton onClick={handleReset} colorType="dark"/>
         </Styled.CloseIconContainer>
       )}
     </Styled.InputWrapper>

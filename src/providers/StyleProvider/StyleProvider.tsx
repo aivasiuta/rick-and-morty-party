@@ -1,15 +1,14 @@
-import React from 'react'
-// @ts-ignore
-import Normalize from 'react-normalize'
+import React, { FC } from 'react'
 
 import { GlobalStyles } from './GlobalStyles'
 
-// todo type
-// @ts-ignore
-export const StyleProvider = ({ children }) => {
+interface Props {
+  children: any
+}
+
+export const StyleProvider: FC<Props> = ({ children }): JSX.Element => {
   return (
     <>
-      <Normalize />
       <GlobalStyles />
       {children}
     </>

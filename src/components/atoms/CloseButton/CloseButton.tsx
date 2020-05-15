@@ -4,15 +4,14 @@ import { Styled } from './styled'
 import CrossIcon from '../../../assets/cross.svg'
 
 interface Props {
-  // todo type
-  onClick: (e: any) => void
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
   colorType?: CloseButtonColor
 }
 
-export const CloseButton: FC<Props> = ({ onClick, colorType = 'light' }) => {
+export const CloseButton: FC<Props> = ({ onClick, colorType = 'light' }): JSX.Element => {
   return (
-    <Styled.CloseIcon colorType={colorType}>
-      <img src={CrossIcon} alt="delete" onClick={onClick} />
+    <Styled.CloseIcon colorType={colorType} onClick={onClick}>
+      <img src={CrossIcon} alt="delete" />
     </Styled.CloseIcon>
   )
 }

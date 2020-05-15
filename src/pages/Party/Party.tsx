@@ -1,69 +1,64 @@
-import React, { FC, FormEvent, useState } from 'react'
-import gql from 'graphql-tag'
+import React, { FC, useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import * as _ from 'underscore'
+import { throttle } from 'lodash'
 
 import { Preloader } from '../../components/atoms/Preloader'
-import { ErrorState } from '../../components/atoms/ErrorState'
 import { CharactersList } from '../../components/organisms/CharactersList'
 import { Input } from '../../components/atoms/Input'
-import { Styled } from './styled'
 import { PartyBlock } from '../../components/organisms/PartyBlock'
+import { GET_CHARACTERS, GET_EXCLUDED_CHARACTERS } from '../../apollo/queries'
+import { EmptyState } from '../../components/atoms/EmptyState'
+import { Styled } from './styled'
 
-const GET_CHARACTERS = gql`
-    query getCharacters($name: String) {
-        characters(filter: { name: $name }) {
-            results {
-                id
-                name
-                image
-            }
-        }
-    }
-`
+interface ExcludedCharactersData {
+  excludedCharacters: String[];
+}
 
 export const Party: FC = (): JSX.Element => {
-  const [value, setValue] = useState('')
-  const [morty, setMorty] = useState(null)
-  const [rick, setRick] = useState(null)
+  const [ name, setName ] = useState('')
 
-  // @ts-ignore
-  const handleChangeValue = (e: FormEvent<HTMLInputElement>) => setValue(e.target.value)
-  const throttledHandleChangeValue = _.throttle(handleChangeValue, 300)
+  const throttledSetSearchValue = throttle(setName, 300)
 
-  const handleReset = () => setValue('')
-
-  // @ts-ignore
-  const handleSelectCharacter = (character) => {
-    // eslint-disable-next-line no-console
-    const { name } = character
-    const n = name.toLowerCase()
-    if (n.indexOf('morty') > -1) {
-      setMorty(character)
+  const handleChangeValue = ({ target: { value }}: React.ChangeEvent<HTMLInputElement>): void => {
+    if (value.length < 3) {
       return
     }
-    if (n.indexOf('rick') > -1) {
-      setRick(character)
-      return
-    }
+    throttledSetSearchValue(value)
   }
+
+  // @ts-ignore
+  const { data: { excludedCharacters } } = useQuery<ExcludedCharactersData>(GET_EXCLUDED_CHARACTERS)
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: {
-      name: value,
+      name: name,
     },
   })
 
+  const renderResults = () => {
+    if (loading) {
+      return <Preloader/>
+    }
+
+    if (error) {
+      return <EmptyState>Characters weren't found</EmptyState>
+    }
+
+    const filteredCharacters = data.characters.results.filter((character: any) => {
+      return !excludedCharacters.includes(character.id)
+    })
+
+    return <CharactersList characters={filteredCharacters} />
+  }
+
   return (
-    <Styled.Wrapper>
-      <Input isClearable value={value} onChange={throttledHandleChangeValue} onReset={handleReset} />
-      {loading ? (
-        <Preloader />
-      ) : (
-        <CharactersList characters={data.characters.results} onCharacterClick={handleSelectCharacter} />
-      )}
-      {error && <ErrorState>Error! ${error.message}</ErrorState>}
-      <PartyBlock rick={rick} morty={morty} />
-    </Styled.Wrapper>
+    <>
+      <Styled.Wrapper>
+        <Input isClearable onChange={handleChangeValue} />
+        {renderResults()}
+      </Styled.Wrapper>
+      <Styled.Title>Party</Styled.Title>
+      <PartyBlock />
+    </>
   )
 }

@@ -3,7 +3,6 @@ import React, { FC } from 'react'
 import { Styled } from './styled'
 
 interface Props {
-  // todo type
   children: any
 }
 
