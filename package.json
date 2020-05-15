@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "apollo:generate": "apollo codegen:generate --excludes=node_modules/* --includes=**/*.tsx --endpoint https://rickandmortyapi.com/graphql --target typescript --tagName gql --outputFlat src/generatedTypes"
+    "apollo:generate": "apollo codegen:generate --excludes=node_modules/* --includes=**/*.tsx --endpoint https://rickandmortyapi.com/graphql --target typescript --tagName gql --outputFlat src/generatedTypes",
+    "lint": "eslint '*/**/*.{js,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": "react-app"
