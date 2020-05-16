@@ -20,7 +20,14 @@ export const Input: FC<Props> = ({ isClearable = false, onChange, ...restProps }
 
   return (
     <Styled.InputWrapper>
-      <Styled.Input isClearable={isClearable} type="text" value={value} onChange={handleChangeValue} {...restProps} />
+      <Styled.Input
+        isClearable={isClearable}
+        type="text"
+        placeholder="Start typing"
+        value={value}
+        onChange={handleChangeValue}
+        {...restProps}
+      />
       {isClearable && value.length > 0 && (
         <Styled.CloseIconContainer>
           <CloseButton onClick={handleReset} colorType="dark" />
