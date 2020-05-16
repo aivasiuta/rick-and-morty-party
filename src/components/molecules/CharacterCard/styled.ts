@@ -8,6 +8,7 @@ const Wrapper = styled.div<{ imageUrl: string }>`
   background-size: cover;
   background-position: center;
   cursor: pointer;
+  background-color: #dadada;
 `
 
 const CloseIconContainer = styled.div`
