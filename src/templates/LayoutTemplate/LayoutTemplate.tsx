@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { Styled } from './styled'
 
 interface Props {
-  children: any
+  children: React.ReactElement[] | React.ReactElement
 }
 
 export const LayoutTemplate: FC<Props> = ({ children }): JSX.Element => {

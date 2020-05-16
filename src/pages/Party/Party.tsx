@@ -6,13 +6,11 @@ import { Preloader } from '../../components/atoms/Preloader'
 import { CharactersList } from '../../components/organisms/CharactersList'
 import { Input } from '../../components/atoms/Input'
 import { PartyBlock } from '../../components/organisms/PartyBlock'
-import { GET_CHARACTERS, GET_EXCLUDED_CHARACTERS } from '../../apollo/queries'
+import { GET_CHARACTERS, GET_EXCLUDED_CHARACTERS_IDS } from '../../apollo/queries'
 import { EmptyState } from '../../components/atoms/EmptyState'
+import { Character, GetCharactersData, GetCharactersVariables } from '../../models/Character'
 import { Styled } from './styled'
-
-interface ExcludedCharactersData {
-  excludedCharacters: string[]
-}
+import { GetExcludedCharactersIds } from '../../models/ExcludedCharacters'
 
 export const Party: FC = (): JSX.Element => {
   const [name, setName] = useState('')
@@ -28,10 +26,10 @@ export const Party: FC = (): JSX.Element => {
 
   const {
     // @ts-ignore
-    data: { excludedCharacters },
-  } = useQuery<ExcludedCharactersData>(GET_EXCLUDED_CHARACTERS)
+    data: { excludedCharactersIds },
+  } = useQuery<GetExcludedCharactersIds>(GET_EXCLUDED_CHARACTERS_IDS)
 
-  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+  const { loading, error, data } = useQuery<GetCharactersData, GetCharactersVariables>(GET_CHARACTERS, {
     variables: {
       name,
     },
@@ -42,12 +40,12 @@ export const Party: FC = (): JSX.Element => {
       return <Preloader />
     }
 
-    if (error) {
-      return <EmptyState>Characters weren&lsquo;t found</EmptyState>
+    if (error || !data || !data.characters || !data.characters.results) {
+      return <EmptyState>Characters were not found</EmptyState>
     }
 
-    const filteredCharacters = data.characters.results.filter((character: any) => {
-      return !excludedCharacters.includes(character.id)
+    const filteredCharacters: Character[] = data.characters.results.filter((character: Character) => {
+      return !excludedCharactersIds.includes(character.id)
     })
 
     return <CharactersList characters={filteredCharacters} />

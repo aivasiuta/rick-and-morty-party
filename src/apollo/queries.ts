@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost'
 
-export const GET_EXCLUDED_CHARACTERS = gql`
-  query GetExcludedCharacters {
-    excludedCharacters @client
+export const GET_EXCLUDED_CHARACTERS_IDS = gql`
+  query GetExcludedCharactersIds {
+    excludedCharactersIds @client
   }
 `
 
@@ -14,7 +14,7 @@ export const GET_PARTY_CHARACTERS = gql`
 `
 
 export const GET_CHARACTERS = gql`
-  query getCharacters($name: String) {
+  query GetCharacters($name: String) {
     characters(filter: { name: $name }) {
       results {
         id

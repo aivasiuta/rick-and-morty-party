@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { Styled } from './styled'
 
 interface Props {
-  children: any
+  children: React.ReactElement[] | React.ReactElement | string
 }
 
 export const EmptyState: FC<Props> = ({ children }): JSX.Element => {

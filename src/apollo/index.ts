@@ -1,31 +1,32 @@
-import ApolloClient, { InMemoryCache } from 'apollo-boost'
-import { GET_EXCLUDED_CHARACTERS, GET_PARTY_CHARACTERS } from './queries'
+import ApolloClient, { InMemoryCache, NormalizedCacheObject } from 'apollo-boost'
+
+import { GET_EXCLUDED_CHARACTERS_IDS, GET_PARTY_CHARACTERS } from './queries'
 
 const inMemoryCache = new InMemoryCache()
 
 inMemoryCache.writeData({
   data: {
-    excludedCharacters: [],
+    excludedCharactersIds: [],
     mortyImage: null,
     rickImage: null,
   },
 })
 
-export const client = new ApolloClient({
+export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
   cache: inMemoryCache,
   resolvers: {
     Mutation: {
       addExcludedCharacter: (_root, { id }, { cache }) => {
-        const { excludedCharacters } = cache.readQuery({ query: GET_EXCLUDED_CHARACTERS })
-        if (excludedCharacters.includes(id)) {
+        const { excludedCharactersIds } = cache.readQuery({ query: GET_EXCLUDED_CHARACTERS_IDS })
+        if (excludedCharactersIds.includes(id)) {
           return null
         }
 
         const data = {
-          excludedCharacters: [...excludedCharacters, id],
+          excludedCharactersIds: [...excludedCharactersIds, id],
         }
-        cache.writeQuery({ query: GET_EXCLUDED_CHARACTERS, data })
+        cache.writeQuery({ query: GET_EXCLUDED_CHARACTERS_IDS, data })
         return null
       },
       addRickImage: (_root, { image }, { cache }) => {
