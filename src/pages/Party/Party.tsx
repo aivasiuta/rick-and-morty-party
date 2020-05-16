@@ -10,7 +10,6 @@ import { GET_CHARACTERS, GET_EXCLUDED_CHARACTERS_IDS } from '../../apollo/querie
 import { EmptyState } from '../../components/atoms/EmptyState'
 import { Character, GetCharactersData, GetCharactersVariables } from '../../models/Character'
 import { Styled } from './styled'
-import { GetExcludedCharactersIds } from '../../models/ExcludedCharacters'
 
 export const Party: FC = (): JSX.Element => {
   const [name, setName] = useState('')
@@ -24,10 +23,10 @@ export const Party: FC = (): JSX.Element => {
     throttledSetSearchValue(value)
   }
 
+  // TODO client query type
   const {
-    // @ts-ignore
     data: { excludedCharactersIds },
-  } = useQuery<GetExcludedCharactersIds>(GET_EXCLUDED_CHARACTERS_IDS)
+  } = useQuery<any>(GET_EXCLUDED_CHARACTERS_IDS)
 
   const { loading, error, data } = useQuery<GetCharactersData, GetCharactersVariables>(GET_CHARACTERS, {
     variables: {

@@ -1,6 +1,7 @@
 import ApolloClient, { InMemoryCache, NormalizedCacheObject } from 'apollo-boost'
 
 import { GET_EXCLUDED_CHARACTERS_IDS, GET_PARTY_CHARACTERS } from './queries'
+import { typeDefs } from './typeDefs'
 
 const inMemoryCache = new InMemoryCache()
 
@@ -15,6 +16,7 @@ inMemoryCache.writeData({
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
   cache: inMemoryCache,
+  typeDefs,
   resolvers: {
     Mutation: {
       addExcludedCharacter: (_root, { id }, { cache }) => {
